@@ -3,10 +3,6 @@ import { useState } from "react";
 import { useMemo } from "react";
 import { TaskMenu } from "./taskMenu";
 
-/**
- *
- * @returns
- */
 export const WorkMenu = () => {
     const [name, setName] = useState<string>("");
     const [nTask, setNTask] = useState<number>(1);
@@ -22,7 +18,7 @@ export const WorkMenu = () => {
     };
 
     return (
-        <div className="px-4 py-2">
+        <div className="px-4 py-2 border">
             <div className="flex">
                 <div>工程名 : </div>
                 <input
@@ -33,11 +29,11 @@ export const WorkMenu = () => {
                 />
             </div>
             {tasks.map((task, index) => {
-                return <div key={`task-${index}`}>{task}</div>;
+                return <div key={`${name}-${index}`}>{task}</div>;
             })}
             <button
                 onClick={addTask}
-                className="px-2 my-2 rounded text-white bg-slate-500"
+                className="ml-2 px-2 my-2 rounded text-white bg-slate-500"
             >
                 Add task
             </button>

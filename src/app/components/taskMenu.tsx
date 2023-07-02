@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useEffect } from "react";
 import { useCallback } from "react";
 import { useMemo } from "react";
 import { MemberMenu } from "./memberMenu";
@@ -37,16 +36,16 @@ export const TaskMenu = () => {
                     type="text"
                     value={taskName}
                     onChange={updateTaskName}
-                    className="ml-2 bg-gray-50"
+                    className="ml-2 border"
                 />
             </div>
             <div className="px-2">
                 人件費
                 <div className="px-2">
                     <div className="flex">
-                        <div className="w-36">担当者名</div>
-                        <div className="w-36">開始日</div>
-                        <div className="w-36">終了日</div>
+                        <div className="w-32 ml-4">担当者名</div>
+                        <div className="w-32 ml-4">開始日</div>
+                        <div className="w-32 ml-4">終了日</div>
                     </div>
                     {members.map((member) => {
                         return member;
