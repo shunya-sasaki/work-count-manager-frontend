@@ -25,12 +25,9 @@ export const TaskMenu = () => {
     const addMember = () => {
         const newMember = <MemberMenu />;
         const newMembers = [...members, newMember];
+        setNMember((prev) => prev + 1);
         setMembers(newMembers);
     };
-
-    useEffect(() => {
-        console.log("task: " + taskName);
-    }, [taskName]);
 
     return (
         <div className="px-2 py-2">
@@ -54,8 +51,11 @@ export const TaskMenu = () => {
                     {members.map((member) => {
                         return member;
                     })}
-                    <button onClick={addMember} className="px-2 my-2 rounded text-white bg-slate-500">
-                      Add member
+                    <button
+                        onClick={addMember}
+                        className="px-2 my-2 rounded text-white bg-slate-500"
+                    >
+                        Add member
                     </button>
                 </div>
                 <div className="px-2">経費</div>
