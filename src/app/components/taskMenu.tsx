@@ -22,9 +22,11 @@ export const TaskMenu = () => {
         []
     );
 
-    const addMember = useCallback(() => {
-        console.log("Add member");
-    }, []);
+    const addMember = () => {
+        const newMember = <MemberMenu />;
+        const newMembers = [...members, newMember];
+        setMembers(newMembers);
+    };
 
     useEffect(() => {
         console.log("task: " + taskName);
