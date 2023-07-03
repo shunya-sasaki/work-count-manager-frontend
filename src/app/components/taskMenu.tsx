@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import { useMemo } from "react";
 import { MemberMenu } from "./memberMenu";
+import { DeleteButton } from "./buttons/deleteButton";
 
 export const TaskMenu = () => {
     const [nMember, setNMember] = useState<number>(1);
@@ -71,12 +72,10 @@ export const TaskMenu = () => {
                                     key={`${taskName}-${index}`}
                                     className="flex pt-2"
                                 >
-                                    <button
-                                        onClick={() => deleteMember(index)}
-                                        className="mt-1 mb-1 text-xs w-4 h-4 rounded-full align-middle text-white bg-slate-500"
-                                    >
-                                        -
-                                    </button>
+                                    <DeleteButton
+                                        onClick={deleteMember}
+                                        index={index}
+                                    />
                                     <div>{member}</div>
                                 </div>
                             );
