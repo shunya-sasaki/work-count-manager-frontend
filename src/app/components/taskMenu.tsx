@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCallback } from "react";
 import { useMemo } from "react";
 import { MemberMenu } from "./memberMenu";
@@ -14,6 +14,10 @@ export const TaskMenu = () => {
         }, []),
     ]);
 
+    useEffect(() => {
+        console.log(taskName + "nMember: " + nMember);
+    }, [members]);
+
     const updateTaskName = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setTaskName(event.target.value);
@@ -26,6 +30,17 @@ export const TaskMenu = () => {
         const newMembers = [...members, newMember];
         setNMember((prev) => prev + 1);
         setMembers(newMembers);
+    };
+
+    const deleteMember = (index: number) => {
+        if (nMember > 1) {
+            const newMembers = [...members];
+            newMembers.splice(index, 1);
+            setNMember((prev) => prev - 1);
+            setMembers(newMembers);
+        } else {
+            console.log("Cannot delete the last member.");
+        }
     };
 
     return (
@@ -42,13 +57,40 @@ export const TaskMenu = () => {
             <div className="px-2">
                 人件費
                 <div className="px-2">
-                    <div className="flex">
-                        <div className="w-32 ml-4">担当者名</div>
-                        <div className="w-32 ml-4">開始日</div>
-                        <div className="w-32 ml-4">終了日</div>
+                    <div className="flex pt-2">
+                        <div className="h-6 w-32 ml-8 align-middle">
+                            担当者名
+                        </div>
+                        <div className="w-32 ml-4 align-middle">開始日</div>
+                        <div className="w-32 ml-4 align-middle">終了日</div>
                     </div>
-                    {members.map((member) => {
-                        return member;
+                    {members.map((member, index) => {
+                        if (index > 0) {
+                            return (
+                                <div
+                                    key={`${taskName}-${index}`}
+                                    className="flex pt-2"
+                                >
+                                    <button
+                                        onClick={() => deleteMember(index)}
+                                        className="mt-1 mb-1 text-xs w-4 h-4 rounded-full align-middle text-white bg-slate-500"
+                                    >
+                                        -
+                                    </button>
+                                    <div>{member}</div>
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div
+                                    key={`${taskName}-${index}`}
+                                    className="flex pt-2"
+                                >
+                                    <div className="ml-4"></div>
+                                    <div>{member}</div>
+                                </div>
+                            );
+                        }
                     })}
                     <button
                         onClick={addMember}

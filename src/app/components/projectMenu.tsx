@@ -33,8 +33,8 @@ export const ProjectMenu = () => {
                 />
             </div>
             <div className="px-2 pt-2">
-                {works.map((work) => {
-                    return work;
+                {works.map((work, index) => {
+                    return <div key={`${name}-${index}`}>{work}</div>;
                 })}
             </div>
             <button

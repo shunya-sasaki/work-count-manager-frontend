@@ -35,24 +35,24 @@ export const MemberMenu = () => {
     }, [name]);
 
     return (
-        <div className="flex pt-2">
+        <div className="flex">
             <input
                 value={name}
                 onChange={updateName}
                 type="text"
-                className="ml-4 w-32 border"
+                className="h-6 ml-4 w-32 border"
             />
             <input
                 value={startDate}
                 onChange={updateStartDate}
                 type="date"
-                className="ml-4 w-32 border"
+                className="h-6 ml-4 w-32 border"
             />
             <input
                 value={endDate}
                 onChange={updateEndDate}
                 type="date"
-                className="ml-4 w-32 border"
+                className="h-6 ml-4 w-32 border"
             />
         </div>
     );
