@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useMemo } from "react";
 import { TaskMenu } from "./taskMenu";
 import { DeleteButton } from "./buttons/deleteButton";
+import { AddButton } from "./buttons/addButton";
 
 export const WorkMenu = () => {
     const [name, setName] = useState<string>("");
@@ -30,7 +31,7 @@ export const WorkMenu = () => {
     };
 
     return (
-        <div className="px-4 py-2 border">
+        <div className="px-2">
             <div className="flex">
                 <div>工程名 : </div>
                 <input
@@ -57,12 +58,7 @@ export const WorkMenu = () => {
                     );
                 }
             })}
-            <button
-                onClick={addTask}
-                className="ml-2 px-2 my-2 rounded text-white bg-slate-500"
-            >
-                Add task
-            </button>
+            <AddButton onClick={addTask} label="Add Task" />
         </div>
     );
 };

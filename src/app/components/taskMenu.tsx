@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { useMemo } from "react";
 import { MemberMenu } from "./memberMenu";
 import { DeleteButton } from "./buttons/deleteButton";
+import { AddButton } from "./buttons/addButton";
 
 export const TaskMenu = () => {
     const [nMember, setNMember] = useState<number>(1);
@@ -91,12 +92,7 @@ export const TaskMenu = () => {
                             );
                         }
                     })}
-                    <button
-                        onClick={addMember}
-                        className="px-2 my-2 rounded text-white bg-slate-500"
-                    >
-                        Add member
-                    </button>
+                    <AddButton onClick={addMember} label="Add member"/>
                 </div>
                 <div className="px-2">経費</div>
             </div>
