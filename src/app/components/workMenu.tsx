@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useMemo } from "react";
 import { TaskMenu } from "./taskMenu";
+import { DeleteButton } from "./buttons/deleteButton";
 
 export const WorkMenu = () => {
     const [name, setName] = useState<string>("");
@@ -17,6 +18,17 @@ export const WorkMenu = () => {
         setTasks(newTasks);
     };
 
+    const deleteTask = (index: number) => {
+        if (nTask > 1) {
+            const newTasks = [...tasks];
+            newTasks.splice(index, 1);
+            setNTask((prev) => prev - 1);
+            setTasks(newTasks);
+        } else {
+            console.log("Cannot delete the last task.");
+        }
+    };
+
     return (
         <div className="px-4 py-2 border">
             <div className="flex">
@@ -29,7 +41,21 @@ export const WorkMenu = () => {
                 />
             </div>
             {tasks.map((task, index) => {
-                return <div key={`${name}-${index}`}>{task}</div>;
+                if (index > 0) {
+                    return (
+                        <div key={`${name}-${index}`} className="flex pt-2">
+                            <DeleteButton onClick={deleteTask} index={index} />
+                            <div>{task}</div>
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div key={`${name}-${index}`} className="flex pt-2">
+                            <div className="ml-4"></div>
+                            <div>{task}</div>
+                        </div>
+                    );
+                }
             })}
             <button
                 onClick={addTask}

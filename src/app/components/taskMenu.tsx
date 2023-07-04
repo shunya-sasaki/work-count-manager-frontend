@@ -45,8 +45,8 @@ export const TaskMenu = () => {
     };
 
     return (
-        <div className="px-2 py-2">
-            <div className="flex">
+        <div className="px-2">
+            <div className="flex h-6">
                 <div>作業名 : </div>
                 <input
                     type="text"
