@@ -1,24 +1,42 @@
 "use client";
-import { useState } from "react";
-import { useMemo } from "react";
-import { WorkMenu } from "./workMenu";
-import { DeleteButton } from "./buttons/deleteButton";
+import { useMemo, useState } from "react";
+import { useRecoilState } from "recoil";
+import { stateInput } from "../states/stateInput";
+import { stateUsableWorkId } from "../states/stateUsableId";
+import { stateUsableTaskId } from "../states/stateUsableId";
+import { stateWork } from "../states/stateWork";
 import { AddButton } from "./buttons/addButton";
+import { DeleteButton } from "./buttons/deleteButton";
+import { WorkMenu } from "./workMenu";
 
 export const ProjectMenu = () => {
     const [name, setName] = useState<string>("");
     const [nWork, setNWork] = useState<number>(1);
+    const [stateWorks, setStateWorks] = useState([
+        () => {return useRecoilState(stateWork(0))},
+    ])
+
     const [works, setWorks] = useState<Array<JSX.Element>>([
-        useMemo(() => <WorkMenu />, []),
+        useMemo(() => <WorkMenu workId={0} />, []),
     ]);
+
+    const [usableWorkId, setUsableWorkId] = useRecoilState(stateUsableWorkId);
+    const [usableTaskId, setUsableTaskId] = useRecoilState(stateUsableTaskId);
+
+    const [input, setInput] = useRecoilState(stateInput);
 
     const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
+        const newInput = { ...input };
+        newInput.projectName = event.target.value;
+        setInput(newInput);
     };
 
     const addWork = () => {
-        const newWork = <WorkMenu />;
+        const newWork = <WorkMenu workId={usableWorkId} />;
         const newWorks = [...works, newWork];
+        setUsableWorkId((prev) => prev + 1);
+        setUsableTaskId((prev) => prev + 1);
         setNWork((prev) => prev + 1);
         setWorks(newWorks);
     };
@@ -41,7 +59,7 @@ export const ProjectMenu = () => {
                     type="text"
                     value={name}
                     onChange={updateName}
-                    className="ml-2 border rounded"
+                    className="ml-2 border rounded w-96"
                 />
             </div>
             <div className="px-2 pt-2">

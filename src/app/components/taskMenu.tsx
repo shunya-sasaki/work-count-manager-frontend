@@ -1,13 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useCallback } from "react";
-import { useMemo } from "react";
-import { MemberMenu } from "./memberMenu";
-import { DeleteButton } from "./buttons/deleteButton";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { stateTask } from "../states/stateTask";
+import { stateWork } from "../states/stateWork";
 import { AddButton } from "./buttons/addButton";
+import { DeleteButton } from "./buttons/deleteButton";
+import { MemberMenu } from "./memberMenu";
 
-export const TaskMenu = () => {
+import { useRecoilState } from "recoil";
+
+interface InterfaceTaskMenu {
+    workId: number;
+    taskId: number;
+}
+
+export const TaskMenu = (props: InterfaceTaskMenu) => {
+    const {workId, taskId} = props
+    const workState = useRecoilValue(stateWork(workId))
+    const [taskState, setTaskState] = useRecoilState(stateTask(taskId));
     const [nMember, setNMember] = useState<number>(1);
     const [taskName, setTaskName] = useState<string>("");
     const [members, setMembers] = useState<Array<JSX.Element>>([
@@ -16,16 +27,17 @@ export const TaskMenu = () => {
         }, []),
     ]);
 
-    useEffect(() => {
-        console.log(taskName + "nMember: " + nMember);
-    }, [members]);
-
     const updateTaskName = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setTaskName(event.target.value);
         },
         []
     );
+
+    useEffect(() => {
+        console.log("taskName: " + taskName);
+        console.log("workName@task: " + workState.name);
+    }   , [workState])
 
     const addMember = () => {
         const newMember = <MemberMenu />;
